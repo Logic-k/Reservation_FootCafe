@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Seat } from './types';
 import { useTimer } from './hooks/useTimer';
 import SeatMap from './components/SeatMap/SeatMap';
@@ -8,6 +8,15 @@ import SeatRecommendation from './components/Reservation/SeatRecommendation';
 import SessionModal from './components/Session/SessionModal';
 import AlertBanner from './components/Common/AlertBanner';
 import ActivityLogPanel from './components/Common/ActivityLogPanel';
+
+function useLiveClock() {
+  const [now, setNow] = useState(new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return now;
+}
 
 type TabId = 'seats' | 'reserve' | 'reservations' | 'logs';
 
@@ -28,6 +37,7 @@ const TABS: Tab[] = [
  */
 function AppLayout() {
   useTimer();
+  const clock = useLiveClock();
 
   const [activeTab, setActiveTab] = useState<TabId>('seats');
   const [selectedSeat, setSelectedSeat] = useState<Seat | null>(null);
@@ -80,10 +90,20 @@ function AppLayout() {
       <AlertBanner />
 
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <h1 className="text-xl font-bold text-center py-3 text-gray-800">
-          족욕카페 좌석 예약 관리
-        </h1>
+      <header className="bg-white shadow-sm border-b border-gray-200 py-3 px-4">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <h1 className="text-lg font-bold text-gray-800">
+            족욕카페 좌석 예약 관리
+          </h1>
+          <div className="text-right">
+            <div className="text-xl font-bold text-gray-900 tabular-nums">
+              {clock.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+            </div>
+            <div className="text-xs text-gray-500">
+              {clock.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' })}
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* Tab Navigation */}

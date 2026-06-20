@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>족욕카페 좌석 예약 관리 - 사용 가이드</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', sans-serif; color: #333; line-height: 1.7; padding: 40px; max-width: 800px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; border-bottom: 3px solid #4a90d9; padding-bottom: 12px; }
+  h2 { font-size: 20px; font-weight: 700; margin-top: 36px; margin-bottom: 12px; color: #2c3e50; padding-left: 8px; border-left: 4px solid #4a90d9; }
+  h3 { font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 8px; color: #34495e; }
+  p { margin-bottom: 12px; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+  th { background: #f0f4f8; font-weight: 600; }
+  tr:nth-child(even) { background: #fafafa; }
+  .tip { background: #e8f4fd; border-left: 4px solid #4a90d9; padding: 10px 14px; margin: 12px 0; border-radius: 4px; font-size: 13px; }
+  .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 14px; margin: 12px 0; border-radius: 4px; font-size: 13px; }
+  .step { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 16px; margin: 12px 0; }
+  .step ol { padding-left: 20px; }
+  .step li { margin-bottom: 6px; font-size: 14px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-orange { background: #fff3cd; color: #856404; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .badge-purple { background: #e8daef; color: #6c3483; }
+  .badge-gray { background: #e2e3e5; color: #383d41; }
+  .layout-box { font-family: monospace; background: #f4f4f4; padding: 16px; border-radius: 8px; font-size: 13px; line-height: 1.5; margin: 12px 0; white-space: pre; }
+  .section-divider { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+  .faq dt { font-weight: 600; margin-top: 12px; font-size: 14px; }
+  .faq dd { margin-left: 16px; margin-bottom: 8px; font-size: 14px; color: #555; }
+  @media print {
+    body { padding: 20px; }
+    h2 { page-break-after: avoid; }
+    .step { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🦶 족욕카페 좌석 예약 관리<br><small style="font-size:14px;color:#666;font-weight:400;">사용 가이드 (직원용)</small></h1>
+
+<hr class="section-divider">
+
+<h2>📱 앱 접속 방법</h2>
+<p>브라우저(크롬, 사파리 등)에서 배포된 URL을 입력하면 바로 사용할 수 있습니다.<br>
+PC, 태블릿, 스마트폰 모두 동일하게 사용 가능합니다.</p>
+<div class="tip">💡 <strong>팁</strong>: 스마트폰에서 "홈 화면에 추가"를 하면 앱처럼 바로 열 수 있습니다.</div>
+
+<hr class="section-divider">
+
+<h2>🏠 화면 구성 (4개 탭)</h2>
+<table>
+  <tr><th>탭</th><th>기능</th></tr>
+  <tr><td><strong>좌석현황</strong></td><td>12개 좌석의 현재 상태를 한눈에 확인</td></tr>
+  <tr><td><strong>예약등록</strong></td><td>임시예약을 새로 등록</td></tr>
+  <tr><td><strong>예약목록</strong></td><td>등록된 예약을 확인/관리 (전환·취소)</td></tr>
+  <tr><td><strong>이용로그</strong></td><td>이용 시작/종료, 예약 기록 확인</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>🪑 좌석현황 탭</h2>
+
+<h3>좌석 배치</h3>
+<div class="layout-box">[입구]        [창가]
+입구4    1번 2번 3번 4번 5번 6번 7번 8번
+입구3
+입구2
+입구1</div>
+
+<h3>좌석 색상 의미</h3>
+<table>
+  <tr><th>색상</th><th>상태</th><th>의미</th></tr>
+  <tr><td><span class="badge badge-green">초록색</span></td><td>비어있음</td><td>새 손님 이용 가능</td></tr>
+  <tr><td><span class="badge badge-orange">주황색</span></td><td>이용 중</td><td>손님이 사용 중 (남은 시간 표시)</td></tr>
+  <tr><td><span class="badge badge-blue">파란색</span></td><td>예약됨</td><td>예약된 좌석 (예약자명 표시)</td></tr>
+  <tr><td><span class="badge badge-red">빨간 깜빡임</span></td><td>종료 임박</td><td>5분 이내에 시간 종료 예정</td></tr>
+  <tr><td><span class="badge badge-purple">보라색 태그</span></td><td>그룹</td><td>같은 일행(커플/가족)으로 이용 중</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>▶️ 이용 시작하기 (손님 입장 시)</h2>
+
+<h3>🧑 1인 이용</h3>
+<div class="step">
+<ol>
+  <li><strong>좌석현황</strong> 탭에서 <span class="badge badge-green">초록색</span> 좌석을 탭</li>
+  <li>"이용 시작" 모달이 열림</li>
+  <li><strong>[1인 이용 시작]</strong> 버튼 탭</li>
+  <li>좌석이 <span class="badge badge-orange">주황색</span>으로 바뀌고, 40분 타이머 시작!</li>
+</ol>
+</div>
+
+<h3>👨‍👩‍👧‍👦 그룹 이용 (2인 이상 - 커플/가족/여행객)</h3>
+<div class="step">
+<ol>
+  <li><span class="badge badge-green">초록색</span> 좌석 하나를 탭</li>
+  <li><strong>[그룹 이용 시작 (2인 이상)]</strong> 버튼 탭</li>
+  <li><strong>그룹명</strong> 입력 (예: "커플A", "가족김씨", "여행객3인")</li>
+  <li>함께 이용할 <strong>추가 좌석</strong>을 탭하여 선택 (선택된 좌석은 보라색)</li>
+  <li><strong>[그룹 시작 (N인)]</strong> 버튼 탭</li>
+  <li>선택한 모든 좌석이 동시에 "이용 중"으로 변경됨!</li>
+</ol>
+</div>
+
+<hr class="section-divider">
+
+<h2>⏹️ 이용 종료하기 (손님 퇴장 시)</h2>
+
+<div class="step">
+<ol>
+  <li><span class="badge badge-orange">주황색</span>(이용 중) 좌석을 탭</li>
+  <li>이용 정보 확인 (시작 시간, 종료 예정, 남은/초과 시간)</li>
+  <li><strong>[이용 종료]</strong> 버튼 탭</li>
+  <li>"정말 종료하시겠습니까?" → <strong>[종료]</strong> 탭</li>
+</ol>
+</div>
+
+<h3>그룹 종료 시 선택지</h3>
+<table>
+  <tr><th>버튼</th><th>동작</th></tr>
+  <tr><td><strong>[이것만]</strong></td><td>이 좌석만 종료 (나머지 그룹은 유지)</td></tr>
+  <tr><td><strong>[전체 종료]</strong></td><td>같은 그룹 좌석 모두 동시 종료</td></tr>
+  <tr><td><strong>[취소]</strong></td><td>아무것도 하지 않음</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>📝 예약 등록하기 (좌석이 꽉 찼을 때)</h2>
+
+<div class="step">
+<ol>
+  <li><strong>예약등록</strong> 탭으로 이동</li>
+  <li>필수 정보 입력:
+    <ul style="margin-top:4px;padding-left:20px;">
+      <li><strong>예약 시간</strong> — 언제 이용할 예정인지 (미래 시간만 가능)</li>
+      <li><strong>예약자명</strong> — 손님 이름/닉네임 (1~20자)</li>
+      <li><strong>결제방식</strong> — 현금 / 계좌이체 / 카드</li>
+      <li><strong>좌석 선택</strong> — 원하는 좌석을 탭 (파란색으로 선택됨)</li>
+    </ul>
+  </li>
+  <li>2인 이상 → 여러 좌석 탭 시 <strong>"그룹명"</strong> 입력란 자동 표시</li>
+  <li><strong>[예약 등록]</strong> 버튼 탭</li>
+</ol>
+</div>
+
+<div class="warning">⚠️ 시간이 겹치는 좌석은 자동으로 차단됩니다. 겹침 발생 시 노란색 경고 메시지가 표시됩니다.</div>
+
+<h3>추천 좌석 (예약등록 탭 하단)</h3>
+<ul style="padding-left:20px;font-size:14px;">
+  <li>"지금 이용 가능" → 현재 비어있는 좌석</li>
+  <li>"HH:MM 이후 이용 가능" → 해당 시간 이후에 비는 좌석</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>📋 예약 목록 관리</h2>
+
+<p><strong>예약목록</strong> 탭에서 등록된 모든 예약을 시간순으로 확인합니다.</p>
+
+<table>
+  <tr><th>버튼</th><th>용도</th><th>설명</th></tr>
+  <tr><td><span class="badge badge-green">전환</span></td><td>손님 도착</td><td>예약 → 이용 시작으로 즉시 전환. 좌석이 아직 사용 중이면 불가</td></tr>
+  <tr><td><span class="badge badge-red">취소</span></td><td>예약 취소</td><td>확인 후 삭제. 좌석이 "비어있음"으로 변경</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>📊 이용 로그</h2>
+
+<table>
+  <tr><th>배지</th><th>기록 유형</th></tr>
+  <tr><td><span class="badge badge-green">이용 시작</span></td><td>손님 이용 시작됨</td></tr>
+  <tr><td><span class="badge badge-gray">이용 완료</span></td><td>손님 이용 종료됨</td></tr>
+  <tr><td><span class="badge badge-blue">예약 등록</span></td><td>새 예약 등록됨</td></tr>
+  <tr><td><span class="badge badge-red">예약 취소</span></td><td>예약 취소됨</td></tr>
+  <tr><td><span class="badge badge-purple">예약 전환</span></td><td>예약이 이용으로 전환됨</td></tr>
+</table>
+
+<p><strong>로그 삭제:</strong> 개별 항목 ✕ 버튼 / 상단 "전체 삭제" 버튼 사용</p>
+
+<hr class="section-divider">
+
+<h2>⏰ 자동 알림</h2>
+
+<table>
+  <tr><th>알림</th><th>표시 방법</th><th>의미</th></tr>
+  <tr><td>종료 5분 전</td><td>좌석 카드 빨간색 테두리 깜빡임</td><td>손님에게 시간 거의 끝남을 안내</td></tr>
+  <tr><td>시간 초과</td><td>화면 상단 빨간색 배너</td><td>"⚠️ OO번 좌석이 N분 초과되었습니다"</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>🔄 기기 간 동기화</h2>
+<ul style="padding-left:20px;font-size:14px;">
+  <li>카운터 PC에서 이용 등록 → 사장님 폰에서 <strong>즉시 반영</strong></li>
+  <li>모바일에서 예약 등록 → 다른 기기에서도 <strong>바로 보임</strong></li>
+  <li>인터넷이 끊어져도 로컬에 저장되어 사용 가능</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<dl class="faq">
+  <dt>Q: 이용 시간은 왜 40분인가요?</dt>
+  <dd>A: 족욕 30분 + 전후 여유시간 10분 = 총 40분으로 설정되어 있습니다.</dd>
+
+  <dt>Q: 시간이 초과되면 자동으로 종료되나요?</dt>
+  <dd>A: 아닙니다. 직원이 직접 [이용 종료] 버튼을 눌러야 합니다. 초과 시간은 화면에 표시됩니다.</dd>
+
+  <dt>Q: 같은 좌석에 예약이 겹칠 수 있나요?</dt>
+  <dd>A: 불가능합니다. 시스템이 자동으로 시간 충돌을 감지하고 차단합니다.</dd>
+
+  <dt>Q: 앱 데이터가 날아가면 어떡하나요?</dt>
+  <dd>A: Firebase 클라우드에 실시간 저장되므로 기기를 바꿔도 데이터가 유지됩니다.</dd>
+
+  <dt>Q: 그룹 이용 중 한 명만 먼저 나가면?</dt>
+  <dd>A: 해당 좌석만 개별 종료할 수 있습니다. [이것만] 버튼을 사용하세요.</dd>
+</dl>
+
+<hr class="section-divider">
+
+<h2>🛠️ 문제 해결</h2>
+<table>
+  <tr><th>증상</th><th>해결 방법</th></tr>
+  <tr><td>화면이 안 바뀜</td><td>새로고침 (당겨서 새로고침 또는 F5)</td></tr>
+  <tr><td>다른 기기와 동기화 안됨</td><td>인터넷(와이파이) 연결 확인</td></tr>
+  <tr><td>좌석이 안 눌림</td><td>초록/주황/파란색 좌석만 탭 가능</td></tr>
+  <tr><td>예약 등록 안됨</td><td>모든 필수 항목 입력 확인, 미래 시간인지 확인</td></tr>
+</table>
+
+<br>
+<p style="text-align:center;color:#999;font-size:12px;">최종 업데이트: 2026년 6월 | 족욕카페 좌석 예약 관리 시스템</p>
+
+</body>
+</html>
