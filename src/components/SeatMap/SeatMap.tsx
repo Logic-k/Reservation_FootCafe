@@ -37,11 +37,11 @@ function SeatMap({ onSeatClick }: SeatMapProps) {
     <div className="bg-white rounded-xl border border-gray-200 p-4">
       <h2 className="text-base font-semibold text-gray-700 mb-4">좌석 현황</h2>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
         {/* 입구 좌석: 왼쪽 세로 배치 (위에서부터 입구4→입구3→입구2→입구1) */}
         <div className="flex flex-col items-center">
           <p className="text-xs text-gray-500 mb-2">입구</p>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-row sm:flex-col gap-2">
             {[...entranceSeats].reverse().map((seat) => (
               <SeatCard
                 key={seat.id}
@@ -56,7 +56,7 @@ function SeatMap({ onSeatClick }: SeatMapProps) {
         {/* 창가 좌석: 가로 1줄 (8개 연속) */}
         <div className="flex-1">
           <p className="text-xs text-gray-500 mb-2 text-center">창가</p>
-          <div className="grid grid-cols-8 gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
             {windowSeats.map((seat) => (
               <SeatCard
                 key={seat.id}
